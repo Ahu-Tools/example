@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"os"
 	"os/signal"
 	"sync"
@@ -10,12 +9,14 @@ import (
 
 	"github.com/Ahu-Tools/example/config"
 	"github.com/Ahu-Tools/example/edge"
+	"github.com/Ahu-Tools/example/log"
 )
 
 func main() {
 	config.CheckConfigs()
 	if err := config.ConfigInfras(); err != nil {
-		log.Fatalf("Infrastructures configuration failed. Error: %e", err)
+		log.Logger.Error("Infrastructures configuration failed.", "error", err)
+		os.Exit(1)
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -29,11 +30,11 @@ func main() {
 	edge.Start(ctx, &wg)
 
 	<-signalChan
-	log.Println("Shutdown signal received. Shutting down edges gracefully...")
+	log.Logger.Info("Shutdown signal received. Shutting down edges gracefully...")
 
 	cancel()
 
 	wg.Wait()
 
-	log.Println("All edges have been shutted down. Exiting.")
+	log.Logger.Info("All edges have been shutted down. Exiting.")
 }
