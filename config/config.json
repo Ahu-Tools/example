@@ -1,0 +1,55 @@
+{
+  "app": {
+    "secret_key": "9d1b1b82c544d4dad9fb9bb579c84213d43351559f96ab9ca8bf0caf8f41b471"
+  },
+  "edges": {
+    "asynq": {
+      "concurrency": 10,
+      "queues": null,
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "username": "admin",
+        "password": "1234",
+        "db": 0
+      }
+    },
+    "connect": {
+      "server": {
+        "host": "127.0.0.1",
+        "port": "8088"
+      }
+    },
+    "gin": {
+      "server": {
+        "host": "127.0.0.1",
+        "port": "8080"
+      }
+    }
+  },
+  "infras": {
+    "asynq": {
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "username": "admin",
+        "password": "1234",
+        "db": 0
+      }
+    },
+    "postgres": {
+      "user": "postgres",
+      "password": "postgres",
+      "db_name": "my_app",
+      "host": "127.0.0.1",
+      "port": "5432",
+      "sslmode": "disable"
+    },
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379,
+      "username": "default",
+      "password": "1234"
+    }
+  }
+}

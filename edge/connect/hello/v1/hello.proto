@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+
+
+
+package hello_v_1;
+
+option go_package = "github.com/Ahu-Tools/example/edge/connect/gen/hello/v1;hellov1";
+
+service Service {
+  rpc Health(HealthRequest) returns (HealthResponse) {
+  }
+
+  
+rpc World(WorldRequest) returns (WorldResponse) {
+}
+    // @ahum: methods
+}
+
+message HealthRequest {
+}
+
+message HealthResponse {
+  string message = 1;
+}
+
+
+message WorldRequest {
+}
+
+message WorldResponse {
+    string message = 1;
+}
+// @ahum: messages
