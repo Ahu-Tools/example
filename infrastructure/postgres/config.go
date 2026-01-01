@@ -3,6 +3,7 @@ package postgres
 import (
 	"log"
 
+	"github.com/Ahu-Tools/example/infrastructure/postgres/security"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )
@@ -28,5 +29,11 @@ func Configure() error {
 	var err error
 	Db, err = NewConnection(viper.GetString("infras.postgres.url"))
 
+	// Register the callback to run BEFORE every Create and Update
+	// 1. Run before the INSERT statement is generated
+	Db.Callback().Create().Before("gorm:create").Register("blind_index", security.BlindIndexCallback)
+
+	// 2. Run before the UPDATE statement is generated
+	Db.Callback().Update().Before("gorm:update").Register("blind_index", security.BlindIndexCallback)
 	return err
 }
